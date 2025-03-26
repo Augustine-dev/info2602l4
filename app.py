@@ -172,7 +172,15 @@ def edit_todo_action(id):
     flash('Todo not found or unauthorized')
   return redirect(url_for('todos_page'))
 
-
+@app.route('/deleteTodo/<id>', methods=["GET"])
+@jwt_required()
+def delete_todo_action(id):
+  res = current_user.delete_todo(id)
+  if res == None:
+    flash('Invalid id or unauthorized')
+  else:
+    flash('Todo Deleted')
+  return redirect(url_for('todos_page'))
 
 
 
