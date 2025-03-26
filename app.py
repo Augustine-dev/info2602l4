@@ -205,6 +205,16 @@ def admin_page():
   todos = current_user.search_todos(q, page)
   return render_template('admin.html', todos=todos, page=page, q=q, done=done)
 
+@app.route('/todo-stats', methods=["GET"])
+@login_required(Admin)
+def todo_stats():
+  return jsonify(current_user.get_todo_stats())
+
+@app.route('/stats')
+@login_required(Admin)
+def stats_page():
+  return render_template('stats.html')
+
 
 
 if __name__ == "__main__":
