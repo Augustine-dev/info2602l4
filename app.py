@@ -143,11 +143,13 @@ def login_action():
     response = redirect(url_for('login_page'))
   return response
 
-@app.route('/app', methods=['GET'])
+@app.route('/createTodo', methods=['POST'])
 @jwt_required()
-def todos_page():
-  return render_template('todo.html', current_user=current_user)
-
+def create_todo_action():
+  data = request.form
+  current_user.add_todo(data['text'])
+  flash('Created')
+  return redirect(url_for('todos_page'))
 
 
 
